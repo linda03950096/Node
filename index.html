@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header id="top-bar">
+    <a href="#hero" class="logo" id="logo"></a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero">
+      <p class="eyebrow" id="hero-role"></p>
+      <h1 id="hero-headline"></h1>
+      <a href="#work" class="scroll-hint">Selected Work ↓</a>
+    </section>
+
+    <section id="work">
+      <div class="section-head">
+        <h2>Work</h2>
+        <span id="work-count"></span>
+      </div>
+      <div id="project-grid"></div>
+    </section>
+
+    <section id="about">
+      <div class="section-head"><h2>About</h2></div>
+      <div class="about-grid">
+        <div id="about-text"></div>
+        <div class="about-side">
+          <h3>Skills</h3>
+          <ul id="skills" class="chips"></ul>
+          <h3>Education</h3>
+          <ul id="education" class="plain"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="eyebrow">Contact</p>
+      <a id="contact-email" class="big-link"></a>
+      <ul id="contact-links" class="link-row"></ul>
+    </section>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
