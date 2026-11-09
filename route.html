@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" />
+  <title>Tomorrow route — 산디종</title>
+  <link rel="stylesheet" href="https://use.typekit.net/cbs4srk.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/map-route.css" />
+  <link rel="stylesheet" href="css/route.css" />
+  <script src="js/app.js"></script>
+</head>
+<body data-tab="home">
+  <div class="stage"><div class="phone-scaler"><div class="phone">
+    <main class="screen mr mr--d">
+
+      <!-- 지도 -->
+      <div class="mr-map">
+        <div class="rot mr-bg">
+          <img src="assets/map/map-bg-wide.png" alt="" />
+          <div class="mr-bg-fade"></div>
+        </div>
+        <div class="mr-route">
+          <div class="rot mr-seg1"><img src="assets/route/route-1.svg" alt="" /></div>
+          <div class="rot mr-seg2 mr-masked"><img src="assets/route/route-2.svg" alt="" /></div>
+        </div>
+        <span class="rot mr-dot mr-dot--start"><img src="assets/route/dot-start.svg" alt="" /></span>
+        <span class="rot mr-dot mr-dot--end"><img src="assets/route/dot-end.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--1"><img src="assets/route/dot-trail.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--2"><img src="assets/route/dot-trail.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--3"><img src="assets/route/dot-trail.svg" alt="" /></span>
+        <div class="mr-pin">
+          <img src="assets/route/pin.svg" alt="" />
+          <div class="mr-pin-text">
+            <span class="t-small-m">Charge Point</span>
+            <span class="mr-cap muted">Parkview A3</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="home.html" data-back class="mr-back icon-btn" aria-label="뒤로"><img src="assets/route/back-btn.svg" alt="" /></a>
+
+      <div class="rt-body">
+        <h1 class="t-heading-l rt-title" data-enter>Tomorrow · 12:00</h1>
+
+        <div class="rt-stack">
+          <!-- 일정 바 -->
+          <div class="glass mr-trip" data-enter style="animation-delay:.06s">
+            <div class="rt-trip-meta t-small"><span>Tomorrow</span><span>09:00</span></div>
+            <div class="mr-trip-line">
+              <img src="assets/route/pin-small.svg" width="12.907" height="17.195" alt="" />
+              <div class="mr-bar mr-bar--short"><img src="assets/route/stripe.svg" alt="" /></div>
+              <img src="assets/route/fuel-small.svg" width="14.55" height="15.716" alt="" />
+              <div class="mr-bar"><img src="assets/route/stripe.svg" alt="" /></div>
+              <img src="assets/route/house-small.svg" width="16.106" height="16" alt="" />
+            </div>
+          </div>
+
+          <!-- 경유지 -->
+          <div class="glass mr-card rt-card" data-enter style="animation-delay:.12s">
+            <div class="mr-rows">
+              <div class="mr-row">
+                <img src="assets/route/navigate.svg" width="28" height="28" alt="" />
+                <div class="mr-row-text"><span class="t-body">My Location</span><span class="mr-cap muted">Airport P3</span></div>
+              </div>
+              <div class="mr-row mr-row--cp">
+                <span class="mr-row-icon"><img src="assets/route/fuel-row.svg" width="14.55" height="15.715" alt="" /></span>
+                <div class="mr-row-text"><span class="t-body">Charge Point</span><span class="mr-cap muted">Parkview A3</span></div>
+              </div>
+              <div class="mr-row">
+                <img src="assets/route/house-row.svg" width="28.185" height="28" alt="" />
+                <div class="mr-row-text"><span class="t-body">Home</span></div>
+              </div>
+              <button class="mr-add">
+                <span class="mr-add-ico"><img src="assets/route/plus.svg" width="14.4" height="14.4" alt="" /></span>
+                <span class="t-body">Add Stop</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div></div></div>
+</body>
+</html>

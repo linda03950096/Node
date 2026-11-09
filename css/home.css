@@ -1,0 +1,189 @@
+/* Home (Figma 325:6444) */
+.home-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 16px 0;
+}
+
+/* 상단 */
+.home-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.home-title { display: flex; flex-direction: column; gap: 8px; }
+.home-sub { display: flex; align-items: center; gap: 8px; }
+.home-actions { display: flex; gap: 2px; }
+.home-icon-btn { width: 68px; height: 48px; border-radius: 22.737px; }
+
+/* 자동차 */
+.home-car {
+  position: relative;
+  height: 233px;
+  margin: 0 -16px;
+  overflow: hidden;
+}
+.home-car-main, .home-car-reflect {
+  position: absolute;
+  left: 16px;
+  width: 627px;
+  height: 217.4px;
+}
+.home-car-main {
+  top: -11.6px;
+  -webkit-mask-image: linear-gradient(to right, #000 200px, transparent 365px);
+          mask-image: linear-gradient(to right, #000 200px, transparent 365px);
+}
+.home-car-reflect {
+  top: 181px;
+  opacity: 0.38;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent 46px);
+          mask-image: linear-gradient(to bottom, #000 0, transparent 46px);
+}
+.home-car img { width: 100%; height: 100%; object-fit: fill; }
+.home-car-main img { transform: scaleX(-1); }
+.home-car-reflect img { transform: scale(-1, -1); }
+
+/* 퀵 액션 + 일정 카드 */
+.home-stack { display: flex; flex-direction: column; gap: 2px; }
+.home-quick {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 4px 0 20px;
+  border-radius: 24px;
+}
+.home-quick-icons { flex: 1; display: flex; justify-content: space-between; }
+.home-quick-icons .icon-btn { width: 59.667px; height: 52px; border-radius: 18px; }
+.home-quick-icons .icon-btn:hover { background: rgba(255, 255, 255, 0.05); }
+.home-call { width: 86px; height: 44px; font-size: 16px; letter-spacing: -0.4px; }
+
+.home-trip {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 24px;
+}
+.home-trip-meta { display: flex; justify-content: space-between; }
+.home-trip-times { display: flex; align-items: center; justify-content: space-between; }
+.home-trip-swap { margin: 0 3px; }
+.home-trip-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 339px;
+  padding: 8px 0;
+}
+.home-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--gray-800);
+  overflow: hidden;
+}
+.home-bar img {
+  position: absolute;
+  left: -90.57px;
+  top: -3.5px;
+  width: 422.7px;
+  height: 95.95px;
+  max-width: none;
+}
+.home-bar--short { width: 76px; flex: none; }
+.home-bar--grow { flex: 1; }
+.home-trip-foot { display: flex; justify-content: space-between; align-items: center; }
+.home-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 18px;
+}
+
+/* Before your drive */
+.home-drive { display: flex; flex-direction: column; gap: 16px; padding-bottom: 16px; }
+.home-drive-head { display: flex; justify-content: space-between; align-items: center; }
+.home-collapse img { transition: transform var(--dur-bouncy) var(--spring-bouncy); }
+.home-collapse[aria-expanded="false"] img { transform: rotate(180deg); }
+.home-drive-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height var(--dur-soft) var(--spring-soft), opacity 0.3s ease;
+}
+.home-drive-body.collapsed { max-height: 0; opacity: 0; }
+
+.home-cards { display: flex; gap: 2px; width: 100%; }
+.home-ready {
+  position: relative;
+  width: 200px;
+  flex: none;
+  border-radius: 24px;
+  background: var(--yellow);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+.home-ready-img {
+  position: absolute;
+  left: -27.46px;
+  top: 9.32px;
+  width: 361.923px;
+  height: 169.176px;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+.home-ready-text {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  width: 168px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  color: var(--black);
+}
+.home-ready-label { display: flex; align-items: center; gap: 8px; opacity: 0.6; }
+.home-ready-label img { margin: 0 3px; }
+/* Figma: text-box-trim (cap ~ alphabetic) + 행간 1.4 그대로 */
+.home-ready-time, .home-stat-val > span { text-box: trim-both cap alphabetic; }
+
+.home-stats { flex: 1; display: flex; flex-direction: column; gap: 2px; height: 242px; }
+.home-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16px 20px;
+  border-radius: 24px;
+}
+.home-stat > .t-small { align-self: stretch; }
+.home-stat--fixed { flex: none; height: 124px; }
+.home-stat-val { display: flex; align-items: flex-end; gap: 4px; }
+/* Engine Oil: 간격 0, 숫자 오른쪽 -4px, 단위 행간 1.1 (Figma 값) */
+.home-stat-val--tight { gap: 0; }
+.home-stat-val--tight .t-display-light { margin-right: -4px; }
+.home-stat-val--tight .t-small { line-height: 1.1; }
+
+/* 토스트 */
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: 110px;
+  transform: translate(-50%, 12px);
+  padding: 12px 20px;
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform var(--dur-bouncy) var(--spring-bouncy);
+  z-index: 60;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }

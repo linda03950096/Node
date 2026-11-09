@@ -1,0 +1,29 @@
+/* Tomorrow route (Figma 325:6224) — 지도/시트 공통 스타일은 map-route.css 재사용 */
+
+.rt-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 134px 16px 86px; /* 상태바 54 + 상단바 80 / 탭바 */
+  pointer-events: none;
+}
+.rt-body > * { pointer-events: auto; }
+.rt-title { white-space: nowrap; }
+.rt-stack { display: flex; flex-direction: column; gap: 2px; }
+.rt-trip-meta { display: flex; justify-content: space-between; }
+.rt-card { gap: 0; }
+
+/* 지도 좌표 */
+.mr--d .mr-bg     { --cx: 162.73px; --cy: 438px; --w: 777.353px; --h: 676.884px; }
+.mr--d .mr-route  { --sx: 219.91px; --sy: 217.29px; }
+.mr--d .mr-seg1   { --cx: 169.015px; --cy: 359.098px; --w: 136.889px; --h: 71.092px; }
+.mr--d .mr-seg2   { --cx: 161.937px; --cy: 244.578px; --w: 71.569px; --h: 133.776px; --mask: linear-gradient(93.20deg, #000 38.44px, transparent 148.24px); }
+.mr--d .mr-dot--start { --cx: 219.91px; --cy: 217.29px; --w: 11.355px; --h: 11.355px; }
+.mr--d .mr-dot--end   { --cx: 224.54px; --cy: 426.42px; --w: 17.395px; --h: 17.395px; }
+.mr--d .mr-trail  { --w: 3.781px; --h: 3.781px; }
+.mr--d .mr-trail--1 { --cx: 197.25px; --cy: 416.91px; }
+.mr--d .mr-trail--2 { --cx: 204.22px; --cy: 419.64px; animation-delay: 1.15s; }
+.mr--d .mr-trail--3 { --cx: 210.89px; --cy: 421.67px; animation-delay: 1.2s; }
+.mr--d .mr-pin    { left: 97.45px; top: 267.71px; width: 58.194px; }

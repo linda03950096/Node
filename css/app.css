@@ -1,0 +1,292 @@
+/* =========================================================
+   공통 스타일 — 폰 프레임, 디자인 토큰, 상태바, 탭바, 화면 전환
+   (Figma: 산디종 / Page 5)
+   ========================================================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap");
+
+:root {
+  /* Figma 색 토큰 */
+  --bg: #161616;               /* Promary/BG */
+  --white: #ffffff;            /* Promary/White */
+  --black: #000000;            /* Promary/Black */
+  --card: rgba(72, 71, 76, 0.34);   /* Promary/Card BG #48474C @34% */
+  --card-shadow: 0 0 20px 0 rgba(72, 71, 76, 0.15);
+  --card-blur: 60px;
+  --gray-800: #2f2f31;         /* Gray/800 */
+  --yellow: #fbff00;           /* Point/Yellow */
+  --white-40: rgba(255, 255, 255, 0.4);
+  --white-60: rgba(255, 255, 255, 0.6);
+
+  /* 글꼴: 디자인은 Elza Text. 설치되어 있지 않으면 Inter Tight로 대체 */
+  --font: "elza-text", "Elza Text", "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* 폰 크기 (iPhone 16 Pro, Figma 프레임) */
+  --phone-w: 402px;
+  --phone-h: 874px;
+  --fit: 1; /* JS가 창 크기에 맞춰 계산 */
+  --phone-radius: 40px;
+
+  --page-bg: #0b0b0b; /* 폰 바깥 배경 (다크) */
+
+  /* ---------- 모션 커브 (쫀득한 스프링) ----------
+     감쇠 스프링 공식 x(t) = 1 − e^(−ζωt)(cos ω_d t + ζω/ω_d · sin ω_d t) 를
+     샘플링해 CSS linear() 곡선으로 만든 것.
+     soft   : ζ 0.72 — 3.8% 살짝 넘쳤다 자리 잡음 (화면 진입, 시트, 전환)
+     bouncy : ζ 0.48 — 17.6% 넘쳤다 한 번 되튕김 (버튼 놓을 때, 토스트)
+     pop    : ζ 0.38 — 26.8% 크게 튀었다 자리 잡음 (마커, 점, 배지 등장) */
+  --spring-soft: linear(0, 0.0516, 0.1731, 0.3253, 0.4815, 0.6252, 0.7478, 0.8458, 0.9197, 0.972, 1.0063, 1.0264, 1.036, 1.0384, 1.0362, 1.0314, 1.0255, 1.0195, 1.0141, 1.0094, 1.0057, 1.0029, 1.001, 0.9997, 0.999, 0.9986, 0.9985, 0.9986, 0.9988, 0.999, 1);
+  --spring-bouncy: linear(0, 0.0623, 0.216, 0.4152, 0.6227, 0.8116, 0.9654, 1.0766, 1.1451, 1.1757, 1.1764, 1.1562, 1.1237, 1.0865, 1.0505, 1.0194, 0.9955, 0.9794, 0.9705, 0.9679, 0.9698, 0.9747, 0.981, 0.9877, 0.9938, 0.9988, 1.0024, 1.0046, 1.0056, 1.0057, 1.005, 1.004, 1.0028, 1.0016, 1);
+  --spring-pop: linear(0, 0.0902, 0.3094, 0.5826, 0.8474, 1.0612, 1.2022, 1.2677, 1.2684, 1.2231, 1.153, 1.0771, 1.0102, 0.9611, 0.9328, 0.9243, 0.9312, 0.9478, 0.9685, 0.9885, 1.0047, 1.0153, 1.0203, 1.0203, 1.0169, 1.0116, 1.0058, 1.0008, 0.997, 0.9949, 0.9943, 0.9948, 0.9961, 0.9976, 1);
+  /* 눌릴 때(빠르게 쑥) / 사라질 때(가속) */
+  --ease-press: cubic-bezier(0.3, 0, 0.5, 1);
+  --ease-exit: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-soft: 0.75s;
+  --dur-bouncy: 0.8s;
+  --dur-pop: 0.7s;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--page-bg);
+  font-family: var(--font);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+p, h1, h2, h3 { margin: 0; }
+img { display: block; }
+
+/* ---------- 무대 & 폰 프레임 ---------- */
+.stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.phone-scaler {
+  width: calc(var(--phone-w) * var(--fit));
+  height: calc(var(--phone-h) * var(--fit));
+}
+.phone {
+  position: relative;
+  width: var(--phone-w);
+  height: var(--phone-h);
+  transform: scale(var(--fit));
+  transform-origin: 0 0;
+  background: var(--bg);
+  border-radius: var(--phone-radius);
+  overflow: hidden;
+  box-shadow: 0 0 0 10px #0d0d0d, 0 0 0 11px #2a2a2a, 0 30px 80px -20px rgba(0, 0, 0, 0.55);
+  isolation: isolate;
+}
+
+/* 실제 휴대폰에서 열면 프레임 없이 화면 꽉 채우기 */
+html.device body { background: var(--bg); }
+html.device { --phone-radius: 0px; }
+html.device .phone { box-shadow: none; }
+
+/* ---------- 화면 (스크롤 영역) ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--phone-radius); /* 전환 중 캡처도 폰 모서리에 맞게 */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  view-transition-name: screen;
+}
+.screen::-webkit-scrollbar { display: none; }
+.screen--pad { padding-top: 54px; padding-bottom: 110px; } /* 상태바 + 탭바 공간 */
+
+/* ---------- 상태바 ---------- */
+.statusbar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 54px;
+  padding-top: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 40;
+  pointer-events: none;
+  view-transition-name: statusbar;
+}
+.statusbar--solid { background: linear-gradient(var(--bg) 70%, rgba(22, 22, 22, 0)); height: 64px; }
+.statusbar .sb-time {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 6px 0 16px;
+  font-family: -apple-system, "SF Pro", "Inter Tight", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+}
+.statusbar .sb-island { width: 124px; height: 10px; }
+.statusbar .sb-levels {
+  flex: 1;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px 0 6px;
+}
+
+/* ---------- 탭바 ---------- */
+.tabbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0 16px;
+  display: flex;
+  justify-content: center;
+  z-index: 40;
+  pointer-events: none;
+}
+.tabbar-pill {
+  pointer-events: auto;
+  display: flex;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 24px;
+  background: var(--card);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  box-shadow: var(--card-shadow);
+  /* 전환 중 탭바 고정용. 바깥 .tabbar에 걸면 배경 블러가 막혀서 알약 자체에 걸어둠 */
+  view-transition-name: tabbar;
+}
+.tabbar a {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+}
+.tabbar svg { display: block; }
+/* 현재 탭 아이콘은 들어올 때 쫀득하게 튀어오르고, 점이 톡 나타남 */
+.tabbar a.is-active svg { animation: tab-pop var(--dur-pop) var(--spring-pop) both; }
+.tabbar a.is-active circle { transform-box: fill-box; transform-origin: center; animation: dot-pop var(--dur-pop) var(--spring-pop) 0.12s both; }
+@keyframes tab-pop { from { transform: translateY(4px) scale(0.86); } }
+@keyframes dot-pop { from { transform: scale(0); } }
+
+/* ---------- 공통 컴포넌트 ---------- */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  box-shadow: var(--card-shadow);
+}
+.btn-yellow, .btn-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 24px;
+  color: var(--black);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.35px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.btn-yellow { background: var(--yellow); }
+.btn-white { background: var(--white); }
+.btn-yellow:hover, .btn-white:hover { filter: brightness(0.95); }
+
+/* 원형/알약 아이콘 버튼 (뒤로가기 등) */
+.icon-btn {
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- 누름 모션 (쫀득) ----------
+   누를 때: 0.12s 동안 빠르게 쑥 들어가고
+   뗄 때:   bouncy 스프링으로 살짝 더 커졌다가 제자리 */
+.btn-yellow, .btn-white, .icon-btn, .press, .tabbar a, .glass a, a.glass, button.glass {
+  transition: transform var(--dur-bouncy) var(--spring-bouncy), filter 0.15s ease, background-color 0.2s ease;
+}
+.btn-yellow:active, .btn-white:active, .press:active, a.glass:active, button.glass:active {
+  transform: scale(0.94);
+  transition: transform 0.12s var(--ease-press);
+}
+.icon-btn:active, .tabbar a:active {
+  transform: scale(0.88);
+  transition: transform 0.12s var(--ease-press);
+}
+/* 화면별로 만든 누름 효과도 '누를 때는 빠르게' 규칙을 따르게 */
+.phone a:active, .phone button:active, .phone [role="button"]:active {
+  transition-duration: 0.12s;
+  transition-timing-function: var(--ease-press);
+}
+
+/* 타이포 (Figma 텍스트 스타일) */
+.t-heading-l { font-weight: 500; font-size: 28px; line-height: 1.2; letter-spacing: -0.7px; }
+.t-heading-m { font-weight: 500; font-size: 24px; line-height: 1.4; letter-spacing: -0.6px; }
+.t-body      { font-weight: 400; font-size: 16px; line-height: 1.4; letter-spacing: -0.4px; }
+.t-body-m    { font-weight: 500; font-size: 16px; line-height: 1.4; letter-spacing: -0.4px; }
+.t-small     { font-weight: 400; font-size: 14px; line-height: 1.4; letter-spacing: -0.35px; }
+.t-small-m   { font-weight: 500; font-size: 14px; line-height: 1.4; letter-spacing: -0.35px; }
+.t-display   { font-weight: 400; font-size: 40px; line-height: 1.4; letter-spacing: -1px; }
+.t-display-light { font-weight: 300; font-size: 40px; line-height: 1.4; letter-spacing: -1px; }
+.muted  { color: var(--white-40); }
+.muted6 { color: var(--white-60); }
+
+/* 화면 진입 애니메이션: data-enter 가 붙은 요소가 아래에서 순서대로 올라옴 */
+/* 위치·크기는 soft 스프링(살짝 넘쳤다 안착), 투명도는 빠르게 */
+[data-enter] {
+  animation:
+    enter-move var(--dur-soft) var(--spring-soft) both,
+    enter-fade 0.35s ease-out both;
+}
+@keyframes enter-move { from { transform: translateY(28px) scale(0.97); } }
+@keyframes enter-fade { from { opacity: 0; } }
+
+/* 팝 등장 (마커, 점, 배지 등): data-pop */
+[data-pop] { animation: pop-in var(--dur-pop) var(--spring-pop) both, enter-fade 0.2s ease-out both; }
+@keyframes pop-in { from { transform: scale(0.4); } }
+
+
+/* ---------- 페이지 간 화면 전환 (Chrome/Edge View Transitions) ---------- */
+@view-transition { navigation: auto; }
+::view-transition-group(root) { animation: none; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+/* 모든 전환 공통: 슬라이드 없음, 화면(.screen)은 폰 안에서만 그려짐(둥근 모서리로 잘림).
+   - 배경 지도: 새 화면의 지도가 '이전 화면의 지도 위치'에서 출발해 제자리로 스프링 이동 (app.js mapFlip)
+     → 전환 시작 순간 두 화면의 지도가 같은 자리에 겹쳐 있어 지도는 그대로 있는 것처럼 보임
+   - UI: 같은 버튼·탭바는 그대로, 바뀐 팝업만 교차되고 새 팝업은 data-enter 로 쫀득하게 올라옴
+   - 지도를 별도 층으로 떼지 않으므로 폰 밖으로 나갈 수 없고, 전환 중에도 배경 블러가 유지됨 */
+::view-transition-group(screen) { animation: none; z-index: 1; }
+::view-transition-group(statusbar), ::view-transition-group(tabbar) { z-index: 2; }
+::view-transition-old(screen) { animation: vt-fade-out 0.24s ease both; }
+::view-transition-new(screen) { animation: vt-fade-in 0.24s ease both; }
+/* 교차할 때 같은 픽셀(지도, 고정 버튼)은 밝기 그대로 유지되도록 더하기 합성 */
+::view-transition-image-pair(screen) { isolation: isolate; }
+::view-transition-old(screen), ::view-transition-new(screen) { mix-blend-mode: plus-lighter; }
+/* 상태바·탭바는 모든 화면에서 같으므로 교차 없이 그대로 (현재 탭 표시는 새 화면에서 톡 튀어나옴) */
+::view-transition-old(statusbar), ::view-transition-old(tabbar) { animation: none; opacity: 0; }
+::view-transition-new(statusbar), ::view-transition-new(tabbar) { animation: none; opacity: 1; }
+@keyframes vt-fade-in  { from { opacity: 0; } }
+@keyframes vt-fade-out { to   { opacity: 0; } }
+
+/* 탭바는 전환 중 따로 떼어 그려지는데, 이때 배경 블러가 둥근 모서리 없이 사각형으로 그려지는
+   브라우저 동작이 있어서 전환하는 동안만 블러 대신 블러된 결과 색(화면에서 측정)으로 채움 */
+html.vt-capturing .tabbar-pill {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background-color: rgba(41, 40, 42, 0.96);
+}
+
+/* 구성이 같은 화면끼리(달력 → 날짜 선택)는 진입 애니메이션 생략 → 달라진 요소만 바뀜 */
+html.vt-same [data-enter] { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-enter] { animation: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

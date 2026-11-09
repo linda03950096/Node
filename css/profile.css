@@ -1,0 +1,187 @@
+/* Profile & history (Figma 325:5574 / 325:5274) */
+.prof-topbar { padding: 16px 20px; }
+
+.prof-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 16px 16px;
+}
+.prof-top { display: flex; flex-direction: column; gap: 2px; }
+
+/* ---------- 카드 2개 ---------- */
+.prof-cards { display: flex; gap: 2px; }
+.prof-card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 180px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.prof-card > * { position: absolute; }
+.prof-card-text {
+  left: 16px;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  z-index: 1;
+}
+.prof-card-text .t-heading-m { position: relative; align-self: flex-start; }
+.prof-card-sub {
+  font-size: 11.945px;
+  line-height: 1.4;
+  letter-spacing: -0.2986px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Yeji Han (어두운 카드 + 노란 빛) */
+.prof-dots { left: 11.92px; top: -38.5px; width: 179px; height: 345px; max-width: none; }
+.prof-glow { left: -44.6px; top: 12.43px; width: 382.834px; height: 342.335px; max-width: none; pointer-events: none; }
+.prof-glow--day { left: -12.8px; top: 29.23px; width: 351.032px; height: 325.537px; }
+.prof-online { left: 102.04px; top: 24.22px; z-index: 1; } /* 이름 오른쪽 초록 점 (Figma 좌표) */
+.prof-card--user .prof-dots--top { z-index: 2; }
+
+/* Ioniq 5 (노란 카드 + 자동차) */
+.prof-card--car { background: var(--yellow); box-shadow: var(--card-shadow); color: var(--black); }
+.prof-card--car .prof-card-text { left: 15.8px; top: 16.5px; width: 144px; }
+.prof-sub-white { color: var(--white-40); }
+.prof-sub-dim { opacity: 0.4; }
+.prof-car {
+  left: 15.8px;
+  top: 53.07px;
+  width: 341.556px;
+  height: 126.926px;
+  overflow: hidden;
+}
+.prof-car-main, .prof-car-reflect {
+  position: absolute;
+  width: 341.628px;
+  height: 108.134px;
+  overflow: hidden;
+}
+.prof-car-main { left: 0.07px; top: -0.1px; transform: scaleX(-1); }
+.prof-car-reflect {
+  left: -0.04px;
+  top: 104.95px;
+  transform: scale(-1, -1);
+  opacity: 0.38;
+  /* 반전된 좌표계 기준: 화면상 위쪽(=로컬 아래쪽) 21.6px 동안 사라짐 */
+  -webkit-mask-image: linear-gradient(to top, #000 0, transparent 21.648px);
+          mask-image: linear-gradient(to top, #000 0, transparent 21.648px);
+}
+.prof-car img {
+  position: absolute;
+  left: 0;
+  top: -5.74%;
+  width: 100%;
+  height: 109.53%;
+  max-width: none;
+}
+
+/* ---------- 설정 목록 ---------- */
+.prof-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 24px;
+}
+.prof-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+}
+.prof-row::before {
+  content: "";
+  position: absolute;
+  inset: -6px -8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.15s ease;
+}
+.prof-row:hover::before { background: rgba(255, 255, 255, 0.05); }
+.prof-row:active::before { background: rgba(255, 255, 255, 0.1); }
+.prof-ico { position: relative; width: 28px; height: 28px; flex: none; }
+.prof-ico img { position: absolute; }
+.prof-ico--account img { left: 8.215px; top: 5.8px; }
+.prof-ico--bell img { left: 7.335px; top: 7.33px; }
+.prof-ico--full img { left: 0; top: 0; }
+
+/* ---------- History ---------- */
+.prof-history { display: flex; flex-direction: column; gap: 16px; }
+.prof-history-head { display: flex; justify-content: space-between; align-items: center; }
+.prof-month {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 18px;
+  transition: transform var(--dur-bouncy) var(--spring-bouncy);
+}
+.prof-month:active { transform: scale(0.96); }
+.prof-list { display: flex; flex-direction: column; gap: 2px; }
+
+/* 주간 달력 */
+.prof-week {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 24px;
+}
+.prof-weekdays, .prof-dates { display: flex; justify-content: space-between; align-items: flex-start; }
+.prof-weekdays span {
+  width: 26px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+}
+.prof-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+  height: 48px;
+  -webkit-tap-highlight-color: transparent;
+}
+.prof-date-num {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: var(--white-40);
+  transition: background 0.2s ease, color 0.2s ease, transform var(--dur-bouncy) var(--spring-bouncy);
+}
+.prof-date:hover .prof-date-num { color: var(--white-60); }
+.prof-date:active .prof-date-num { transform: scale(0.9); }
+.prof-date img { flex: none; margin-top: -8px; }
+.prof-date.is-selected .prof-date-num {
+  background: var(--white);
+  border-radius: 64px;
+  color: var(--black);
+  font-weight: 500;
+}
+
+/* 기록 행 */
+.prof-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 24px;
+  transition: transform var(--dur-bouncy) var(--spring-bouncy), background 0.15s ease;
+}
+.prof-item-row { height: 39px; display: flex; align-items: center; gap: 12px; width: 100%; }
+.prof-item-row img { flex: none; }
+.prof-item-text { flex: 1; min-width: 0; display: flex; justify-content: space-between; align-items: flex-start; white-space: nowrap; }
+.prof-item:hover { background: rgba(72, 71, 76, 0.46); }
+.prof-item:active { transform: scale(0.98); }

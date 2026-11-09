@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" />
+  <title>Payment — 산디종</title>
+  <link rel="stylesheet" href="https://use.typekit.net/cbs4srk.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/map-route.css" />
+  <script src="js/app.js"></script>
+</head>
+<body data-tab="schedule">
+  <div class="stage"><div class="phone-scaler"><div class="phone">
+    <main class="screen mr mr--c">
+
+      <!-- 지도 -->
+      <div class="mr-map">
+        <div class="rot mr-bg">
+          <img src="assets/map/map-bg-wide.png" alt="" />
+          <div class="mr-bg-fade"></div>
+        </div>
+        <div class="mr-route">
+          <div class="rot mr-seg1"><img src="assets/map-route/route-c1.svg" alt="" /></div>
+          <div class="rot mr-seg2 mr-masked"><img src="assets/map-route/route-c2.svg" alt="" /></div>
+        </div>
+        <span class="rot mr-dot mr-dot--start"><img src="assets/map-route/dot-start-c.svg" alt="" /></span>
+        <span class="rot mr-dot mr-dot--end"><img src="assets/map-route/dot-end-c.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--1"><img src="assets/map-route/dot-trail-c.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--2"><img src="assets/map-route/dot-trail-c.svg" alt="" /></span>
+        <span class="rot mr-trail mr-trail--3"><img src="assets/map-route/dot-trail-c.svg" alt="" /></span>
+        <div class="mr-pin">
+          <img src="assets/map-route/pin-c.svg" alt="" />
+          <div class="mr-pin-text">
+            <span class="t-small-m">Charge Point</span>
+            <span class="mr-cap muted">Parkview A3</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="map-route-home.html" data-back class="mr-back icon-btn" aria-label="뒤로"><img src="assets/map-route/back-btn.svg" alt="" /></a>
+
+      <div class="mr-side">
+        <button class="glass mr-side-btn icon-btn" aria-label="경고"><img class="mr-side-warn" src="assets/map-route/btn-warning.svg" width="19.645" height="19.645" alt="" /></button>
+        <button class="glass mr-side-btn icon-btn" aria-label="충전소"><img src="assets/map-route/btn-fuel.svg" width="14.55" height="15.716" alt="" /></button>
+        <button class="glass mr-side-btn icon-btn" aria-label="집"><img src="assets/map-route/btn-home.svg" width="28" height="28" alt="" /></button>
+      </div>
+
+      <!-- 하단 시트 -->
+      <div class="mr-sheet">
+        <!-- 내일 일정 미니 바 -->
+        <div class="glass mr-trip" data-enter>
+          <span class="t-small">Tomorrow · 12:00</span>
+          <div class="mr-trip-line">
+            <span class="mr-nav-ico"><img src="assets/map-route/navigate-small.svg" alt="" /></span>
+            <div class="mr-bar"><img src="assets/map-route/stripe.svg" alt="" /></div>
+            <img src="assets/map-route/fuel-small.svg" width="14.55" height="15.716" alt="" />
+            <div class="mr-bar"><img src="assets/map-route/stripe.svg" alt="" /></div>
+            <img src="assets/map-route/house-small.svg" width="16.106" height="16" alt="" />
+          </div>
+        </div>
+
+        <!-- 결제 정보 -->
+        <div class="glass pay-card" data-enter style="animation-delay:.06s">
+          <div class="pay-body">
+            <div class="pay-row">
+              <span class="t-heading-m">$32.99</span>
+              <button class="pay-bank press">
+                <span class="mr-cap">Shinhan</span>
+                <span class="pay-chev"><img src="assets/map-route/chevron.svg" width="7.5" height="13.5" alt="" /></span>
+              </button>
+            </div>
+            <img src="assets/map-route/divider-thin.svg" width="338" height="0.2" alt="" />
+            <div class="pay-row">
+              <span class="t-small muted">Card number</span>
+              <span class="pay-card-num">
+                <img src="assets/map-route/card-logo.svg" width="20.978" height="12.626" alt="" />
+                <span class="pay-num t-body">Brex<span class="pay-dots"><i></i><i></i><i></i><i></i></span>9460</span>
+              </span>
+            </div>
+            <div class="pay-row">
+              <span class="t-small muted">Expiry date</span>
+              <span class="t-body">09/19</span>
+            </div>
+            <div class="pay-row">
+              <span class="t-small muted">Security code</span>
+              <span class="t-body">654</span>
+            </div>
+          </div>
+          <img src="assets/map-route/divider.svg" width="338" height="0.5" alt="" />
+          <div class="mr-foot pay-foot">
+            <div class="mr-eta">
+              <img src="assets/map-route/star.svg" width="12" height="28" alt="" />
+              <div class="mr-eta-text"><span class="mr-eta-time">42 min</span><span class="mr-cap muted">11 km</span></div>
+            </div>
+            <button class="btn-yellow pay-continue" id="continueBtn">
+              <span class="pay-label">Continue</span><span class="pay-check"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <div class="toast" id="toast">Scheduled!</div>
+  </div></div></div>
+
+  <script>
+    // Continue → 완료 표시 + 토스트 → 홈으로
+    const btn = document.getElementById("continueBtn");
+    const toast = document.getElementById("toast");
+    btn.addEventListener("click", () => {
+      btn.classList.add("done");
+      btn.setAttribute("aria-label", "Scheduled");
+      toast.classList.add("show");
+      setTimeout(() => {
+        try { sessionStorage.setItem("vt-type", "tab"); } catch (_) {}
+        location.href = "home.html";
+      }, 1100);
+    });
+  </script>
+</body>
+</html>

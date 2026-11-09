@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" />
+  <title>Schedule · date set — 산디종</title>
+  <link rel="stylesheet" href="https://use.typekit.net/cbs4srk.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/schedule.css" />
+  <script src="js/app.js"></script>
+</head>
+<body data-tab="schedule">
+  <div class="stage"><div class="phone-scaler"><div class="phone">
+    <main class="screen screen--pad sched">
+      <!-- 배경 지도 -->
+      <div class="sched-bg" aria-hidden="true">
+        <div class="sched-bg-map"><img src="assets/map/map-bg.png" alt="" /></div>
+      </div>
+
+      <div class="sched-body">
+        <div class="sched-head" data-enter>
+          <h1 class="t-heading-l">Schedule</h1>
+          <button class="glass sched-month icon-btn t-small" aria-label="월 선택">Sep<img src="assets/schedule/chevron-down.svg" width="20" height="20" alt="" /></button>
+        </div>
+
+        <!-- 달력 -->
+        <div class="glass sched-card" data-enter style="animation-delay:.06s">
+          <div class="sched-cal">
+            <div class="sched-week t-small-m"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div class="sched-days">
+            <div class="sched-row">
+              <span class="sched-day sched-day--empty"></span>
+              <span class="sched-day sched-day--empty"></span>
+              <span class="sched-day sched-day--empty"></span>
+              <button class="sched-day t-small is-selected" aria-label="Sep 1">1</button>
+              <button class="sched-day t-small" aria-label="Sep 2">2</button>
+              <button class="sched-day t-small" aria-label="Sep 3">3</button>
+              <button class="sched-day t-small" aria-label="Sep 4">4</button>
+            </div>
+            <div class="sched-row">
+              <button class="sched-day t-small" aria-label="Sep 5">5</button>
+              <button class="sched-day t-small" aria-label="Sep 6">6</button>
+              <button class="sched-day t-small" aria-label="Sep 7">7</button>
+              <button class="sched-day t-small" aria-label="Sep 8">8</button>
+              <button class="sched-day t-small" aria-label="Sep 9">9</button>
+              <button class="sched-day t-small" aria-label="Sep 10">10</button>
+              <button class="sched-day t-small" aria-label="Sep 11">11</button>
+            </div>
+            <div class="sched-row">
+              <button class="sched-day t-small" aria-label="Sep 12">12</button>
+              <button class="sched-day t-small" aria-label="Sep 13">13</button>
+              <button class="sched-day t-small" aria-label="Sep 14">14</button>
+              <button class="sched-day t-small" aria-label="Sep 15">15</button>
+              <button class="sched-day t-small" aria-label="Sep 16">16</button>
+              <button class="sched-day t-small" aria-label="Sep 17">17</button>
+              <button class="sched-day t-small" aria-label="Sep 18">18</button>
+            </div>
+            <div class="sched-row">
+              <button class="sched-day t-small" aria-label="Sep 19">19</button>
+              <button class="sched-day t-small" aria-label="Sep 20">20</button>
+              <button class="sched-day t-small" aria-label="Sep 21">21</button>
+              <button class="sched-day t-small" aria-label="Sep 22">22</button>
+              <button class="sched-day t-small" aria-label="Sep 23">23</button>
+              <button class="sched-day t-small" aria-label="Sep 24">24</button>
+              <button class="sched-day t-small" aria-label="Sep 25">25</button>
+            </div>
+            <div class="sched-row">
+              <button class="sched-day t-small" aria-label="Sep 26">26</button>
+              <button class="sched-day t-small" aria-label="Sep 27">27</button>
+              <button class="sched-day t-small" aria-label="Sep 28">28</button>
+              <button class="sched-day t-small" aria-label="Sep 29">29</button>
+              <button class="sched-day t-small" aria-label="Sep 30">30</button>
+              <button class="sched-day t-small" aria-label="Sep 31">31</button>
+              <span class="sched-day sched-day--empty"></span>
+            </div>
+            </div>
+          </div>
+          <img class="sched-divider" src="assets/schedule/divider.svg" width="338" height="0.5" alt="" />
+          <div class="sched-foot">
+            <div class="sched-times t-small">
+              <span class="glass sched-time"><span class="muted">Start</span><b>9:00</b></span>
+              <span class="glass sched-time"><span class="muted">Arrive</span><b>9:40</b></span>
+            </div>
+            <a href="map-search.html" class="btn-yellow">Next</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></div></div>
+  <script>
+    // 달력에서 누른 날짜(?d=)를 선택 상태로 (없으면 디자인대로 1일)
+    const d = new URLSearchParams(location.search).get("d");
+    if (d) {
+      const target = document.querySelector(`.sched-day[aria-label="Sep ${d}"]`);
+      if (target) {
+        document.querySelector(".sched-day.is-selected")?.classList.remove("is-selected");
+        target.classList.add("is-selected");
+      }
+    }
+    // 다른 날짜를 누르면 선택 표시 이동
+    document.querySelectorAll(".sched-day:not(.sched-day--empty)").forEach((d) => {
+      d.addEventListener("click", () => {
+        document.querySelector(".sched-day.is-selected")?.classList.remove("is-selected");
+        d.classList.add("is-selected");
+      });
+    });
+  </script>
+</body>
+</html>

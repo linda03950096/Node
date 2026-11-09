@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#161616" />
+  <title>Home — 산디종</title>
+  <link rel="stylesheet" href="https://use.typekit.net/cbs4srk.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <script src="js/app.js"></script>
+</head>
+<body data-tab="home">
+  <div class="stage"><div class="phone-scaler"><div class="phone">
+    <main class="screen screen--pad home">
+      <div class="home-body">
+
+        <!-- 상단: 제목 + 검색/알림 -->
+        <section class="home-top">
+          <div class="home-head" data-enter>
+            <div class="home-title">
+              <h1 class="t-heading-l">Scheduled<br />Daily Service</h1>
+              <p class="home-sub t-small muted"><img src="assets/home/info.svg" width="14" height="14" alt="" />240km Gas</p>
+            </div>
+            <div class="home-actions">
+              <button class="glass home-icon-btn icon-btn" aria-label="검색">
+                <img src="assets/home/search.svg" width="17.229" height="16.334" alt="" />
+              </button>
+              <button class="glass home-icon-btn icon-btn" aria-label="알림">
+                <img src="assets/home/bell.svg" width="19.25" height="20.271" alt="" />
+              </button>
+            </div>
+          </div>
+
+          <!-- 자동차 이미지 + 바닥 반사 -->
+          <div class="home-car" data-enter style="animation-delay:.06s">
+            <div class="home-car-main"><img src="assets/home/car.png" alt="Ioniq 5" /></div>
+            <div class="home-car-reflect"><img src="assets/home/car.png" alt="" /></div>
+          </div>
+
+          <div class="home-stack">
+            <!-- 퀵 액션 -->
+            <div class="glass home-quick" data-enter style="animation-delay:.12s">
+              <div class="home-quick-icons">
+                <button class="icon-btn" aria-label="경고"><img src="assets/home/warning.svg" width="19.645" height="19.645" alt="" /></button>
+                <button class="icon-btn" aria-label="충전"><img src="assets/home/fuel.svg" width="14.55" height="15.716" alt="" /></button>
+                <button class="icon-btn" aria-label="길안내"><img src="assets/home/navigate.svg" width="24" height="24" alt="" /></button>
+              </div>
+              <button class="btn-white home-call t-body-m" id="callBtn">Call</button>
+            </div>
+
+            <!-- 내일 일정 카드 -->
+            <div class="glass home-trip" data-enter style="animation-delay:.18s">
+              <div>
+                <div class="home-trip-meta t-small muted"><span>Tomorrow</span><span>09:00</span></div>
+                <div class="home-trip-times">
+                  <span class="t-display">09:00</span>
+                  <img src="assets/home/swap.svg" width="12" height="9" alt="" class="home-trip-swap" />
+                  <span class="t-display">09:45</span>
+                </div>
+                <div class="home-trip-line">
+                  <img src="assets/home/pin.svg" width="12.907" height="17.195" alt="" />
+                  <div class="home-bar home-bar--short"><img src="assets/home/stripe.svg" alt="" /></div>
+                  <img src="assets/home/fuel-small.svg" width="14.55" height="15.716" alt="" />
+                  <div class="home-bar home-bar--grow"><img src="assets/home/stripe.svg" alt="" /></div>
+                  <img src="assets/home/house.svg" width="16.106" height="16" alt="" />
+                </div>
+              </div>
+              <div class="home-trip-foot">
+                <span class="glass home-chip t-small-m"><img src="assets/home/arrow.svg" width="12" height="12" alt="" />11 km</span>
+                <a href="route.html" class="btn-yellow">More</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Before your drive -->
+        <section class="home-drive" data-enter style="animation-delay:.24s">
+          <div class="home-drive-head">
+            <h2 class="t-heading-m">Before your drive</h2>
+            <button class="icon-btn home-collapse" id="collapseBtn" aria-label="접기" aria-expanded="true">
+              <img src="assets/home/chevron-btn.svg" width="54" height="38" alt="" />
+            </button>
+          </div>
+          <div class="home-drive-body" id="driveBody">
+            <div class="home-cards">
+              <div class="home-ready">
+                <img class="home-ready-img" src="assets/home/robot.png" alt="" />
+                <div class="home-ready-text">
+                  <span class="home-ready-label t-small"><img src="assets/home/swap-dark.svg" width="12" height="9" alt="" />Ready in</span>
+                  <span class="t-display home-ready-time">3h 40m</span>
+                </div>
+              </div>
+              <div class="home-stats">
+                <div class="glass home-stat">
+                  <span class="t-small muted">Charging</span>
+                  <span class="home-stat-val"><span class="t-display-light">22</span><span class="t-small muted">%</span></span>
+                </div>
+                <div class="glass home-stat home-stat--fixed">
+                  <span class="t-small muted">Engine Oil</span>
+                  <span class="home-stat-val home-stat-val--tight"><span class="t-display-light">67</span><span class="t-small muted">Km</span></span>
+                </div>
+              </div>
+            </div>
+            <img class="home-dots" src="assets/home/dots.svg" width="24" height="4" alt="" />
+          </div>
+        </section>
+
+      </div>
+    </main>
+    <div class="toast" id="toast">Calling driver…</div>
+  </div></div></div>
+
+  <script>
+    // 접기/펼치기
+    const btn = document.getElementById("collapseBtn");
+    const body = document.getElementById("driveBody");
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      body.classList.toggle("collapsed", open);
+    });
+    // Call 버튼 → 토스트
+    const toast = document.getElementById("toast");
+    document.getElementById("callBtn").addEventListener("click", () => {
+      toast.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => toast.classList.remove("show"), 1600);
+    });
+  </script>
+</body>
+</html>

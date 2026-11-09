@@ -1,0 +1,16 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Icon">
+<circle id="Ellipse 389" cx="14" cy="14" r="7.33333" stroke-width="1.33333" stroke="white" stroke-opacity="0.4"/>
+<g id="?">
+<use xlink:href="#stroke0_0_630" fill="white" fill-opacity="0.4"/>
+<mask id="stroke1_0_630" maskUnits="userSpaceOnUse" x="10.1828" y="8.76241" width="7" height="10" fill="black">
+<rect fill="white" x="10.1828" y="8.76241" width="7" height="10"/>
+<use xlink:href="#stroke0_0_630"/>
+</mask>
+<path d="M14.3522 15.8782H13.2722V15.7256C13.2722 13.6713 15.7373 13.777 15.7373 12.1336V12.0162C15.7373 11.1828 15.0565 10.6663 14.1291 10.6663C13.0844 10.6663 12.3684 11.2062 12.251 12.3214H11.1828C11.3471 10.5841 12.5914 9.76241 14.1291 9.76241C15.749 9.76241 16.8172 10.7602 16.8172 12.0279V12.1453C16.8172 14.27 14.3522 14.1409 14.3522 15.749V15.8782ZM14.4461 18.2376H13.19V16.7703H14.4461V18.2376Z" stroke-width="0.335385" stroke="white" stroke-opacity="0.4" mask="url(#stroke1_0_630)"/>
+</g>
+</g>
+<defs>
+<path id="stroke0_0_630" d="M14.3522 15.8782H13.2722V15.7256C13.2722 13.6713 15.7373 13.777 15.7373 12.1336V12.0162C15.7373 11.1828 15.0565 10.6663 14.1291 10.6663C13.0844 10.6663 12.3684 11.2062 12.251 12.3214H11.1828C11.3471 10.5841 12.5914 9.76241 14.1291 9.76241C15.749 9.76241 16.8172 10.7602 16.8172 12.0279V12.1453C16.8172 14.27 14.3522 14.1409 14.3522 15.749V15.8782ZM14.4461 18.2376H13.19V16.7703H14.4461V18.2376Z"/>
+</defs>
+</svg>
