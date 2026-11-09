@@ -87,6 +87,9 @@ img { display: block; }
 /* 실제 휴대폰에서 열면 프레임 없이 화면 꽉 채우기 */
 html.device body { background: var(--bg); }
 html.device { --phone-radius: 0px; }
+/* 쇼케이스 안에 넣었을 때: 바깥 배경이 비치도록 투명, 폰 화면 끝에서 페이지 스크롤로 이어짐 */
+html.embed body { background: transparent; }
+html.embed .screen { overscroll-behavior: auto; }
 html.device .phone { box-shadow: none; }
 
 /* ---------- 화면 (스크롤 영역) ---------- */

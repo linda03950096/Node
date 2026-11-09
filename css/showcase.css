@@ -1,0 +1,144 @@
+/* 쇼케이스: ▶ 영상 반복 재생 / ☰ 이미지·영상 세로 스크롤 */
+:root {
+  --bg: #000;
+  --toggle-bg: #2b2b2b;
+  --thumb: #4a4a4a;
+  --spring-pop: linear(0, 0.0902, 0.3094, 0.5826, 0.8474, 1.0612, 1.2022, 1.2677, 1.2684, 1.2231, 1.153, 1.0771, 1.0102, 0.9611, 0.9328, 0.9243, 0.9312, 0.9478, 0.9685, 0.9885, 1.0047, 1.0153, 1.0203, 1.0203, 1.0169, 1.0116, 1.0058, 1.0008, 0.997, 0.9949, 0.9943, 0.9948, 0.9961, 0.9976, 1);
+  --spring-soft: linear(0, 0.0516, 0.1731, 0.3253, 0.4815, 0.6252, 0.7478, 0.8458, 0.9197, 0.972, 1.0063, 1.0264, 1.036, 1.0384, 1.0362, 1.0314, 1.0255, 1.0195, 1.0141, 1.0094, 1.0057, 1.0029, 1.001, 0.9997, 0.999, 0.9986, 0.9985, 0.9986, 0.9988, 0.999, 1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: #fff; font-family: "elza-text", -apple-system, "Segoe UI", sans-serif; }
+body { overflow: hidden; }
+body[data-mode="list"] { overflow: auto; }
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+
+/* ---------- 상단 토글 ---------- */
+.sc-toggle {
+  position: fixed;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  padding: 2px;
+  border-radius: 999px;
+  background: var(--toggle-bg);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.sc-tab {
+  position: relative;
+  z-index: 1;
+  width: 94px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s ease, transform 0.6s var(--spring-pop);
+}
+.sc-tab[aria-selected="true"] { color: #fff; }
+.sc-tab:active { transform: scale(0.9); transition-duration: 0.12s; }
+/* 선택 표시가 쫀득하게 미끄러짐 */
+.sc-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 94px;
+  height: 58px;
+  border-radius: 999px;
+  background: var(--thumb);
+  transition: transform 0.6s var(--spring-soft);
+}
+body[data-mode="list"] .sc-toggle-thumb { transform: translateX(94px); }
+
+/* ---------- ▶ 영상 모드 ---------- */
+.sc-play {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition: opacity 0.45s ease, visibility 0s linear 0s;
+}
+.sc-logo { width: 252px; height: auto; transition: opacity 0.4s ease; }
+.sc-play-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--bg);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.sc-play.has-video .sc-play-video.ready { opacity: 1; }
+.sc-play.has-video .sc-play-video.ready ~ .sc-logo,
+.sc-play.has-video:has(.sc-play-video.ready) .sc-logo { opacity: 0; }
+body[data-mode="list"] .sc-play { opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0s linear 0.35s; }
+
+/* 소리 켜기/끄기 버튼 (오른쪽 아래, 메인 영상이 있을 때만) */
+.sc-sound {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--toggle-bg);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.6s var(--spring-pop);
+}
+.sc-sound[hidden] { display: none; }
+.sc-sound:active { transform: scale(0.9); transition-duration: 0.12s; }
+.sc-sound .ic-off { display: none; }
+.sc-sound.is-muted .ic-on { display: none; }
+.sc-sound.is-muted .ic-off { display: block; }
+
+/* ---------- ☰ 스크롤 모드 ---------- */
+.sc-list {
+  position: relative;
+  min-height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+body[data-mode="list"] .sc-list { opacity: 1; visibility: visible; transition: opacity 0.45s ease, visibility 0s; }
+.sc-list-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 이미지·영상은 화면 너비에 맞춰 사이 간격 없이 이어짐 */
+.sc-item { width: 100%; display: block; }
+.sc-item img, .sc-item video { display: block; width: 100%; height: auto; }
+/* 스크롤하면 하나씩 부드럽게 올라옴 */
+.sc-item { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.9s var(--spring-soft); }
+.sc-item.in { opacity: 1; transform: none; }
+
+/* 맨 아래 프로토타입: 화면 한 장 크기, 폰이 가운데 */
+.sc-proto { height: 100vh; height: 100svh; min-height: 760px; padding: 150px 0 32px; } /* 위쪽은 토글 버튼 자리 */
+.sc-proto iframe { display: block; width: 100%; height: 100%; border: 0; background: transparent; }
+
+.sc-empty {
+  display: none;
+  padding: 220px 24px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+}
+.sc-list.is-empty .sc-empty { display: block; }
+
+@media (max-width: 600px) {
+  .sc-toggle { top: max(20px, env(safe-area-inset-top)); }
+  .sc-tab, .sc-toggle-thumb { width: 72px; height: 46px; }
+  body[data-mode="list"] .sc-toggle-thumb { transform: translateX(72px); }
+  .sc-logo { width: 160px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc-item { opacity: 1; transform: none; transition: none; }
+  .sc-toggle-thumb, .sc-tab { transition: none; }
+}

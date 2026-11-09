@@ -13,7 +13,8 @@
    ========================================================= */
 (function () {
   const root = document.documentElement;
-
+  // 쇼케이스 페이지 안(iframe)에 들어가 있으면 배경을 투명하게 (showcase.html 맨 아래)
+  try { if (window.self !== window.top) root.classList.add("embed"); } catch (_) { root.classList.add("embed"); }
 
   // ---------- 실제 휴대폰인지 (작은 화면 + 터치) ----------
   const isDevice = () => window.matchMedia("(max-width: 500px) and (pointer: coarse)").matches;
